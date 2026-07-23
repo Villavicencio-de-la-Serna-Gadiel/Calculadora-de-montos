@@ -83,8 +83,8 @@ def analisis(tab2):
             st.button("Quitar filtros",
                       key = "quitar_filtros")
     with tab2:
-        st.header("Análisis")
         if "letra" in st.session_state:
+            st.header("Análisis")
             progresion_monto = st.session_state.letra.progresion_monto()
             logica_filtros()
             con_filtro = en_session_state("con_filtro", False)
