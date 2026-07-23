@@ -5,7 +5,7 @@ import analisis as an
 import logica as l
 import datos as d
 def configuracion():
-    st.set_page_config(page_title = "Calculadora de montos",
+    st.set_page_config(page_title = "Capiter",
                        page_icon = "📊")
 def titulos():
     st.title("Calculadora de montos")
