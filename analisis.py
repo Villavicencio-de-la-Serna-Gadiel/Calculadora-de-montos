@@ -84,10 +84,10 @@ def analisis(tab2):
                       key = "quitar_filtros")
     with tab2:
         if "letra" in st.session_state:
-            st.header("Análisis")
             progresion_monto = st.session_state.letra.progresion_monto()
             logica_filtros()
             con_filtro = en_session_state("con_filtro", False)
+             st.header("Análisis")
             if con_filtro:
                 filtrado = st.session_state.filtrado
                 mostrar_graficos(filtrado)
