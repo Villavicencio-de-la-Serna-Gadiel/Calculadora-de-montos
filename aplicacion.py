@@ -5,7 +5,7 @@ import analisis as an
 import logica as l
 import datos as d
 def configuracion():
-    st.set_page_config(page_title = "Capiter|Calculadora de intereces",
+    st.set_page_config(page_title = "Aqevut | Calculadora de intereces",
                        page_icon = "📊")
 def titulos():
     st.title("Calculadora de montos")
