@@ -15,7 +15,7 @@ def inicio():
     st.divider()
     c1, c2 = st.columns(2)
     with c1:
-        st.image("inicio\\imagen.png")
+        st.image("inicio/imagen.png")
     with c2:
         st.write(f'''{saludo()}. A continuación le presentamos Aqevut, una
                             calculadora de intereses y montos creada por Gadiel Villavicencio
