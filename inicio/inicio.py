@@ -10,7 +10,8 @@ def inicio():
         else:
             return "Buenas noches"
     st.title("¡Bienvenido a Aqevut!")
-    st.write("Una aplicación que permite hallar intereses y demás.")
+    st.write('''Indica datos necesarios para hallar el monto e interés, analiza los resultados y 
+                visualizalos mediante gráficas.''')
     st.caption("De Gadiel Villavicencio de la Serna")
     st.image("inicio/imagen.svg")
     st.write(f'''{saludo()}. A continuación le presentamos Aqevut, una
