@@ -123,7 +123,8 @@ def diferencia_fechas():
     st.subheader("Diferencia de fechas")
     formulario_fechas()
     if "presionado" in st.session_state:
-        mostrar_columnas()
+        if st.session_state.presionado:
+            mostrar_columnas()
 def calculo_variables(tab):
     with tab:
         st.header("Cálculo de variables")
