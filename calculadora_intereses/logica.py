@@ -1,0 +1,91 @@
+import math
+class Letra:
+    def __init__(self, capital, redito, tiempo):
+        self.capital = capital
+        self.redito = redito
+        self.tiempo = tiempo
+    def interes(self, monto):
+        return monto - self.capital
+class LetraSimple(Letra):
+    def __init__(self, capital, redito, tiempo):
+        super().__init__(capital, redito, tiempo)
+    def monto(self):
+        return self.capital * (self.redito * self.tiempo + 1)
+    def progresion_monto(self):
+        montos = {}
+        for periodo in range(1, round(self.tiempo) + 1):
+            monto_nuevo = LetraSimple(capital = self.capital,
+                                      redito = self.redito,
+                                      tiempo = periodo)
+            montos[round(monto_nuevo.monto(), 2)] = periodo
+        return montos
+    def faltante(self, monto):
+        if self.capital == "":
+            resultado = monto / (self.redito * self.tiempo + 1)
+        elif self.redito == "":
+            resultado = (monto - self.capital) / (self.tiempo * self.capital)
+        else:
+            resultado = (monto - self.capital) / (self.redito * self.capital)
+        return resultado
+class LetraCompuesta(Letra):
+    def __init__(self, capital, redito, tiempo, capitalizacion):
+        super().__init__(capital, redito, tiempo)
+        self.capitalizacion = capitalizacion
+    def monto(self):
+        def capitalizacion_no_continua():
+            return self.capital * (1 + self.redito) ** self.tiempo
+        def capitalizacion_continua():
+            return self.capital * math.e ** (self.redito * self.tiempo)
+        if self.capitalizacion == "capitalización continua":
+            return capitalizacion_continua()
+        else:
+            return capitalizacion_no_continua()
+    def progresion_monto(self):
+        montos = {}
+        for periodo in range(1, round(self.tiempo) + 1):
+            letra_nueva = LetraCompuesta(capital = self.capital,
+                                         redito = self.redito,
+                                         tiempo = periodo,
+                                         capitalizacion = self.capitalizacion)
+            montos[round(letra_nueva.monto(), 2)] = periodo
+        return montos
+    def faltante(self, monto):
+        if self.capitalizacion == "capitalización no continua":
+            if self.capital == "":
+                resultado = monto / ((self.redito + 1) ** self.tiempo)
+            elif self.redito == "":
+                resultado = monto / self.capital ** (1 / self.tiempo) - 1
+            else:
+                resultado = math.log(monto / self.capital, self.redito + 1)
+        else:
+            if self.capital == "":
+                resultado = monto / (math.e ** (self.redito * self.tiempo))
+            elif self.redito == "":
+                resultado = math.log(monto / self.capital, math.e) / self.tiempo
+            else:
+                resultado = math.log(monto / self.capital, math.e) / self.redito
+        return resultado
+def para_graficos(montos):
+    return {"Monto":list(montos.keys()),
+            "Periodo": list(montos.values())}
+def recorrer_diccionario(diccionario, clave_valor, minimo, maximo):
+    resultado = diccionario.copy()
+    if clave_valor == "clave":
+        for clave in diccionario.keys():
+            if not minimo <= clave <= maximo:
+                resultado.pop(clave)
+    else:
+        for clave, valor in diccionario.items():
+            if not minimo <= valor <= maximo:
+                resultado.pop(clave)
+    return resultado
+unidades = {"Días":0,"Meses":1, "Bimestres":2,
+            "Trimestres":3, "Cuatrimestres":4,
+            "Semestres":6, "Años":12}
+def tiempo_transcurrido(fecha_inicial, fecha_final):
+    return (fecha_final - fecha_inicial).days
+def conversion_unidad_tiempo(tiempo, unidad):
+    if unidad != "Días":
+        return (tiempo/30)/unidades[unidad]
+    else:
+        return tiempo
