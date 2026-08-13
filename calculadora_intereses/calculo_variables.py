@@ -109,7 +109,7 @@ def diferencia_fechas():
         c1, c2 = st.columns(2)
         with c2:
             st.selectbox("Unidad de tiempo",
-                         options = l.unidades,
+                         options = list(l.unidades.keys()),
                          key = "unidad_medida")
         with c1:
             with st.container(border = True):
